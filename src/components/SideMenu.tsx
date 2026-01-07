@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import CountriesList from './CountriesList'
 
 const SideMenu = () => {
   return (
@@ -12,6 +13,7 @@ const SideMenu = () => {
       <NavLink className="link" to="/agendas">
         Agendas
       </NavLink>
+      <CountriesList/>
     </nav>
   )
 }

@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import type { CountrySumary, CountryAuthorities, CountryDetails } from "../data/contextTypes";
 import { FILTERED_COUNTRIES_ISO3 } from "../data/onu";
 
@@ -79,6 +79,18 @@ export const CountriesProvider = ({ children }: Props) => {
       setLoading(false);
     }
   }, [filteredCountries]);
+
+  useEffect(() => {
+    const cache = localStorage.getItem("filteredCountries");
+
+    if (cache) {
+      setFilteredCountries(JSON.parse(cache));
+      console.log("Loaded from cache");
+    } else {
+      searchFiltered();
+      console.log("Loaded from API");
+    }
+  }, [searchFiltered]);
 
   const searchCountryByCode = useCallback(async (iso3: string) => {
     try {

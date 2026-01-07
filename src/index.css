@@ -36,3 +36,88 @@ html, body {
 .link.active {
   text-decoration: underline;
 }
+
+.countries-list {
+  margin-top: 16px;
+  color: white;
+}
+
+.menu-title {
+  font-size: 1rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.region-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.region-button {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.region-button.active {
+  background-color: white;
+  color: #0a3d62;
+}
+
+.country-search {
+  width: 100%;
+  padding: 6px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  border: none;
+  margin-bottom: 10px;
+}
+
+.menu-info {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.menu-error {
+  font-size: 0.75rem;
+  color: #ffcccc;
+}
+
+.countries-items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 55vh;
+  overflow-y: auto;
+}
+
+.country-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.country-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.country-item.active {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.country-flag {
+  width: 20px;
+  height: 14px;
+  object-fit: cover;
+  border-radius: 2px;
+}
