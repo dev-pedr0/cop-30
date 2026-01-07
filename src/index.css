@@ -37,6 +37,10 @@ html, body {
   text-decoration: underline;
 }
 
+/*---------------------------
+        COUNTRIES LIST
+---------------------------*/
+
 .countries-list {
   margin-top: 16px;
   color: white;
@@ -120,4 +124,36 @@ html, body {
   height: 14px;
   object-fit: cover;
   border-radius: 2px;
+}
+
+/*---------------------------
+        COUNTRY PAGE
+---------------------------*/
+.countries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.country-card {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.country-card img {
+  width: 120px;
+  height: auto;
+  margin-bottom: 12px;
+}
+
+.country-details-wrapper {
+  max-width: 600px;
+}
+
+.country-details-card img {
+  width: 180px;
+  margin-bottom: 16px;
 }
