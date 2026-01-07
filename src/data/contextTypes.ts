@@ -14,6 +14,7 @@ export interface CountryDetails extends CountrySumary {
 export type Authority = {
   nome: string;
   political?: string;
+  email: string;
 };
 
 export type CountryAuthorities = {
