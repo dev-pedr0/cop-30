@@ -190,16 +190,38 @@ html, body {
 
 .authority-card {
   background: #537791;
-  padding: 16px;
+  color: #fff;
+  padding: 1rem;
   border-radius: 8px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.authority-info {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0.25rem;
 }
 
 .authority-card em {
   font-size: 0.8rem;
   opacity: 0.8;
+}
+
+.delete-authority {
+  background: #8e2a2a;
+  border: none;
+  color: #fff;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  height: fit-content;
+}
+
+.delete-authority:hover {
+  background: #c0392b;
 }
 
 /* MODAL */

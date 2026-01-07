@@ -17,6 +17,7 @@ const Authorities = () => {
     searchCountryByCode,
     registerAuthority,
     setSelectedCountry,
+    deleteAuthority,
   } = useCountries();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -90,10 +91,27 @@ const Authorities = () => {
         ) : (
           visibleAuthorities.map((a, idx) => (
             <div key={idx} className="authority-card">
-              <strong>{a.position}</strong>
-              <span>{a.nome}</span>
-              <small>{a.email}</small>
-              <em>{a.country}</em>
+              <div className="authority-info">
+                <strong>{a.position}</strong>
+                <span>{a.nome}</span>
+                <small>{a.email}</small>
+                <em>{a.country}</em>
+              </div>
+
+              <button
+                className="delete-authority"
+                onClick={() => {
+                  if (
+                    confirm(
+                      `Delete ${a.position} of ${a.country}?`
+                    )
+                  ) {
+                    deleteAuthority(a.iso3, a.position);
+                  }
+                }}
+              >
+                Delete
+              </button>
             </div>
           ))
         )}
