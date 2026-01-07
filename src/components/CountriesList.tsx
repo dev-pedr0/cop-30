@@ -6,25 +6,19 @@ const REGIONS = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
 
 export default function CountriesList() {
   const {
-    loading,
-    filteredCountries,
-    error,
+    visibleCountries,
+    selectedRegions,
+    setSelectedRegions,
+    selectedCountry,
     setSelectedCountry,
+    loading,
+    error,
   } = useCountries();
 
-  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
   const [searchText, setSearchText] = useState("");
-  const [activeCountry, setActiveCountry] = useState<string | null>(null);
 
-  const regionFiltered =
-    selectedRegions.length === 0
-      ? filteredCountries
-      : filteredCountries.filter((c) =>
-          selectedRegions.includes(c.region)
-        );
-
-  const countries = regionFiltered.filter((c) =>
-    c.name.toLowerCase().includes(searchText.toLowerCase())
+  const filteredByText = visibleCountries.filter((country) =>
+    country.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
   const toggleRegion = (region: string) => {
@@ -36,16 +30,14 @@ export default function CountriesList() {
   };
 
   const handleSelectCountry = (country: CountrySumary) => {
-  if (activeCountry === country.iso3) {
-    setActiveCountry(null);
-    setSelectedCountry(null);
-  } else {
-    setActiveCountry(country.iso3);
-    setSelectedCountry(country.iso3);
-  }
-};
+    if (selectedCountry === country.iso3) {
+      setSelectedCountry(null);
+    } else {
+      setSelectedCountry(country.iso3);
+    }
+  };
 
-  const sortedCountries = [...countries].sort((a, b) =>
+  const sortedCountries = [...filteredByText].sort((a, b) =>
     a.name.localeCompare(b.name)
   );
 
@@ -86,7 +78,7 @@ export default function CountriesList() {
             key={country.iso3}
             className={
               "country-item " +
-              (activeCountry === country.iso3 ? "active" : "")
+              (selectedCountry === country.iso3 ? "active" : "")
             }
             onClick={() => handleSelectCountry(country)}
           >
@@ -102,3 +94,4 @@ export default function CountriesList() {
     </div>
   );
 }
+

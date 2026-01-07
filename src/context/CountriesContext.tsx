@@ -18,6 +18,9 @@ interface CountriesContextType {
     data: any
   ) => void;
   getCountryAuthority: (iso3: string) => Record<string, any>;
+  selectedRegions: string[];
+  setSelectedRegions: React.Dispatch<React.SetStateAction<string[]>>;
+  visibleCountries: CountrySumary[];
 }
 
 const CountriesContext = createContext<CountriesContextType | undefined>(undefined);
@@ -38,6 +41,8 @@ export const CountriesProvider = ({ children }: Props) => {
     const cache = localStorage.getItem("authorities");
     return cache ? JSON.parse(cache) : {};
   });
+
+  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
 
   const searchFiltered = useCallback(async () => {
     try {
@@ -166,6 +171,13 @@ export const CountriesProvider = ({ children }: Props) => {
     [authorities]
   );
 
+  const visibleCountries =
+  selectedRegions.length === 0
+    ? filteredCountries
+    : filteredCountries.filter((country) =>
+        selectedRegions.includes(country.region)
+    );
+
   return (
     <CountriesContext.Provider
       value={{
@@ -180,6 +192,9 @@ export const CountriesProvider = ({ children }: Props) => {
         regionFilter,
         registerAuthority,
         getCountryAuthority,
+        selectedRegions,
+        setSelectedRegions,
+        visibleCountries
       }}
     >
       {children}

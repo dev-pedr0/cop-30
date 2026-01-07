@@ -8,7 +8,7 @@ const Countries = () => {
   const {
     selectedCountry,
     searchCountryByCode,
-    filteredCountries,
+    visibleCountries,
     loading,
   } = useCountries();
 
@@ -24,13 +24,13 @@ const Countries = () => {
   }, [selectedCountry, searchCountryByCode]);
 
   if (!selectedCountry) {
-    if (loading && filteredCountries.length === 0) {
+    if (loading && visibleCountries.length === 0) {
       return <p>Loading countries...</p>;
     }
 
     return (
       <div className="countries-grid">
-        {filteredCountries.map((country: CountrySumary) => (
+        {visibleCountries.map((country: CountrySumary) => (
           <CountryCard key={country.iso3} country={country} />
         ))}
       </div>
