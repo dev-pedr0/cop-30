@@ -33,6 +33,7 @@ html, body {
   padding: 24px;
   overflow-y: auto;
   border-radius: 20px 0 0 20px;
+  justify-content: center;
   background-color: #35393C;
 }
 
@@ -188,12 +189,38 @@ html, body {
 }
 
 .country-details-wrapper {
-  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.country-details-card {
+  background-color: #537791;
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  max-width: 420px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.country-details-card h2 {
+  margin: 0 0 16px;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 .country-details-card img {
   width: 180px;
-  margin-bottom: 16px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
 }
 
 /*---------------------------
