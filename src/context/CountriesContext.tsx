@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
-import type { CountrySumary, CountryAuthorities, CountryDetails } from "../data/contextTypes";
+import type { CountrySumary, CountryAuthorities, CountryDetails, Authority } from "../data/contextTypes";
 import { FILTERED_COUNTRIES_ISO3 } from "../data/onu";
 
 interface CountriesContextType {
@@ -144,22 +144,33 @@ export const CountriesProvider = ({ children }: Props) => {
   );
 
   const registerAuthority = useCallback(
-    (iso3: string, role: string, data: any) => {
-      setAuthorities((prev) => {
-        const countryAuthorities = prev[iso3] || {};
-        const newState = {
-          ...prev,
-          [iso3]: {
-            ...countryAuthorities,
-            [role]: data,
-          },
-        };
-        localStorage.setItem("authorities", JSON.stringify(newState));
-        return newState;
-      });
-    },
-    []
-  );
+  (iso3: string, position: string, data: Authority): boolean => {
+    let success = true;
+
+    setAuthorities((prev) => {
+      const countryAuthorities = prev[iso3] || {};
+
+      if (countryAuthorities[position]) {
+        success = false;
+        return prev;
+      }
+
+      const updated = {
+        ...prev,
+        [iso3]: {
+          ...countryAuthorities,
+          [position]: data,
+        },
+      };
+
+      localStorage.setItem("authorities", JSON.stringify(updated));
+      return updated;
+    });
+
+    return success;
+  },
+  []
+);
 
   const getCountryAuthority = useCallback(
     (iso3: string) => {

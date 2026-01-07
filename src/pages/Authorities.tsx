@@ -125,13 +125,25 @@ const Authorities = () => {
               <select
                 value={position}
                 onChange={(e) => setPosition(e.target.value)}
+                disabled={!iso3}
               >
                 <option value="">Select position</option>
-                {POSITIONS.map((p) => (
-                  <option key={p} value={p}>
-                    {p}
-                  </option>
-                ))}
+
+                {POSITIONS.map((p) => {
+                  const alreadyExists = Boolean(
+                    iso3 && authorities[iso3]?.[p]
+                  );
+
+                  return (
+                    <option
+                      key={p}
+                      value={p}
+                      disabled={alreadyExists}
+                    >
+                      {p} {alreadyExists ? "(Already registered)" : ""}
+                    </option>
+                  );
+                })}
               </select>
 
               <input
