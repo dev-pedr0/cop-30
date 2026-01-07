@@ -278,3 +278,59 @@ html, body {
 .modal-actions .cancel {
   background: #999;
 }
+
+/*---------------------------
+        SCHEDULES PAGE
+---------------------------*/
+
+.schedules-page {
+  background: #35393c;
+  padding: 1.5rem;
+}
+
+.schedules-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: white
+}
+
+.no-schedule {
+  color: white;
+}
+
+.schedules-header button {
+  background: #0a3d62;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.schedules-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #537791;
+}
+
+.schedules-table th,
+.schedules-table td {
+  padding: 0.6rem;
+  text-align: left;
+  color: #fff;
+}
+
+.schedules-table th {
+  background: #0a3d62;
+}
+
+.schedules-table .delete {
+  background: #8e2a2a;
+  border: none;
+  color: #fff;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  border-radius: 4px;
+}

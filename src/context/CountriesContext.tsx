@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
-import type { CountrySumary, CountryAuthorities, CountryDetails, Authority } from "../data/contextTypes";
+import type { CountrySumary, CountryAuthorities, CountryDetails, Authority, Schedule } from "../data/contextTypes";
 import { FILTERED_COUNTRIES_ISO3 } from "../data/onu";
 
 interface CountriesContextType {
@@ -23,6 +23,9 @@ interface CountriesContextType {
   selectedRegions: string[];
   setSelectedRegions: React.Dispatch<React.SetStateAction<string[]>>;
   visibleCountries: CountrySumary[];
+  schedules: Schedule[];
+  registerSchedule: (schedule: Schedule) => void;
+  deleteSchedule: (id: number) => void;
 }
 
 const CountriesContext = createContext<CountriesContextType | undefined>(undefined);
@@ -45,6 +48,11 @@ export const CountriesProvider = ({ children }: Props) => {
   });
 
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+
+  const [schedules, setSchedules] = useState<Schedule[]>(() => {
+    const cache = localStorage.getItem("shcedules");
+    return cache ? JSON.parse(cache) : [];
+});
 
   const searchFiltered = useCallback(async () => {
     try {
@@ -238,6 +246,27 @@ export const CountriesProvider = ({ children }: Props) => {
         selectedRegions.includes(country.region)
     );
 
+  const registerSchedule = (schedule: Schedule) => {
+    setSchedules((prev) => {
+      const updated = [...prev, schedule].sort((a, b) => {
+        const d1 = new Date(`${a.date}T${a.time}`).getTime();
+        const d2 = new Date(`${b.date}T${b.time}`).getTime();
+        return d1 - d2;
+      });
+
+      localStorage.setItem("agendas", JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  const deleteSchedule = (id: number) => {
+    setSchedules((prev) => {
+      const updated = prev.filter((a) => a.id !== id);
+      localStorage.setItem("schedules", JSON.stringify(updated));
+      return updated;
+    });
+  };
+
   return (
     <CountriesContext.Provider
       value={{
@@ -257,6 +286,10 @@ export const CountriesProvider = ({ children }: Props) => {
         visibleCountries,
         deleteAuthority,
         updateAuthority,
+        schedules,
+        registerSchedule,
+        deleteSchedule,
+
       }}
     >
       {children}

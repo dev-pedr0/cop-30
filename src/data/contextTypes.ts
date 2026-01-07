@@ -22,3 +22,13 @@ export type CountryAuthorities = {
     [position: string]: Authority;
   };
 };
+
+export type Schedule = {
+  id: number;
+  iso3: string;
+  country: string;
+  authority: string;
+  position: string;
+  date: string;
+  time: string;
+};
