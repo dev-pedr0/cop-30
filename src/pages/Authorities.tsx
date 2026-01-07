@@ -18,6 +18,7 @@ const Authorities = () => {
     registerAuthority,
     setSelectedCountry,
     deleteAuthority,
+    updateAuthority,
   } = useCountries();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,6 +26,9 @@ const Authorities = () => {
   const [name, setName] = useState("");
   const [position, setPosition] = useState("");
   const [email, setEmail] = useState("");
+  const [editing, setEditing] = useState(false);
+  const [editingIso3, setEditingIso3] = useState("");
+  const [editingPosition, setEditingPosition] = useState("");
   
   const visibleAuthorities = useMemo(() => {
     const sourceCountries = selectedCountry
@@ -68,15 +72,29 @@ const Authorities = () => {
       return;
     }
 
-    registerAuthority(iso3, position, { nome: name, email });
+    if (editing) {
+      updateAuthority(editingIso3, editingPosition, {
+        nome: name,
+        email,
+      });
+    } else {
+      registerAuthority(iso3, position, {
+        nome: name,
+        email,
+      });
+    }
+
     setSelectedCountry(iso3);
 
     setIsModalOpen(false);
+    setEditing(false);
+    setEditingIso3("");
+    setEditingPosition("");
     setIso3("");
     setName("");
     setPosition("");
     setEmail("");
-  };
+  }
 
   return (
     <div className="authorities-page">
@@ -98,20 +116,33 @@ const Authorities = () => {
                 <em>{a.country}</em>
               </div>
 
-              <button
-                className="delete-authority"
-                onClick={() => {
-                  if (
-                    confirm(
-                      `Delete ${a.position} of ${a.country}?`
-                    )
-                  ) {
-                    deleteAuthority(a.iso3, a.position);
-                  }
-                }}
-              >
-                Delete
-              </button>
+              <div className="authority-actions">
+                <button
+                  onClick={() => {
+                    setEditing(true);
+                    setEditingIso3(a.iso3);
+                    setEditingPosition(a.position);
+                    setIso3(a.iso3);
+                    setPosition(a.position);
+                    setName(a.nome);
+                    setEmail(a.email);
+                    setIsModalOpen(true);
+                  }}
+                >
+                  Edit
+                </button>
+
+                <button
+                  className="delete"
+                  onClick={() => {
+                    if (confirm(`Delete ${a.position} of ${a.country}?`)) {
+                      deleteAuthority(a.iso3, a.position);
+                    }
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))
         )}
@@ -121,10 +152,14 @@ const Authorities = () => {
       {isModalOpen && (
         <div className="modal-backdrop">
           <div className="modal">
-            <h3>Register Authority</h3>
+            <h3>{editing ? "Edit Authority" : "Register Authority"}</h3>
 
             <form onSubmit={handleSubmit}>
-              <select value={iso3} onChange={(e) => setIso3(e.target.value)}>
+              <select
+                value={iso3}
+                onChange={(e) => setIso3(e.target.value)}
+                disabled={editing}
+              >
                 <option value="">Select country</option>
                 {filteredCountries.map((c) => (
                   <option key={c.iso3} value={c.iso3}>
@@ -143,7 +178,7 @@ const Authorities = () => {
               <select
                 value={position}
                 onChange={(e) => setPosition(e.target.value)}
-                disabled={!iso3}
+                disabled={editing}
               >
                 <option value="">Select position</option>
 

@@ -19,6 +19,7 @@ interface CountriesContextType {
   ) => void;
   getCountryAuthority: (iso3: string) => Record<string, any>;
   deleteAuthority: (iso3: string, position: string) => void;
+  updateAuthority: (iso3: string, position: string, data: Authority) => void;
   selectedRegions: string[];
   setSelectedRegions: React.Dispatch<React.SetStateAction<string[]>>;
   visibleCountries: CountrySumary[];
@@ -209,8 +210,26 @@ export const CountriesProvider = ({ children }: Props) => {
       return updatedAuthorities;
     });
   },
-  []
-);
+  []);
+
+  const updateAuthority = (
+    iso3: string,
+    position: string,
+    data: Authority
+  ) => {
+    setAuthorities((prev) => {
+      const updated = {
+        ...prev,
+        [iso3]: {
+          ...prev[iso3],
+          [position]: data,
+        },
+      };
+
+      localStorage.setItem("authorities", JSON.stringify(updated));
+      return updated;
+    });
+  };
 
   const visibleCountries =
   selectedRegions.length === 0
@@ -237,6 +256,7 @@ export const CountriesProvider = ({ children }: Props) => {
         setSelectedRegions,
         visibleCountries,
         deleteAuthority,
+        updateAuthority,
       }}
     >
       {children}

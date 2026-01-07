@@ -210,18 +210,27 @@ html, body {
   opacity: 0.8;
 }
 
-.delete-authority {
-  background: #8e2a2a;
-  border: none;
-  color: #fff;
-  padding: 0.4rem 0.6rem;
-  border-radius: 4px;
-  cursor: pointer;
-  height: fit-content;
+.authority-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.delete-authority:hover {
-  background: #c0392b;
+.authority-actions button {
+  border: none;
+  padding: 0.35rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.authority-actions button:first-child {
+  background: #0a3d62;
+  color: #fff;
+}
+
+.authority-actions .delete {
+  background: #8e2a2a;
+  color: #fff;
 }
 
 /* MODAL */
