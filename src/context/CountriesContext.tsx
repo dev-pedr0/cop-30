@@ -49,11 +49,8 @@ export const CountriesProvider = ({ children }: Props) => {
       setLoading(true);
       setError(null);
 
-      if (filteredCountries.length > 0) {
-        return filteredCountries;
-      }
-
       const isoList = FILTERED_COUNTRIES_ISO3.join(",");
+
       const response = await fetch(
         `https://restcountries.com/v3.1/alpha?codes=${isoList}`
       );
@@ -64,17 +61,17 @@ export const CountriesProvider = ({ children }: Props) => {
 
       const data = await response.json();
 
-      const filtered: CountrySumary[] = data.map((country: any) => ({
+      const result: CountrySumary[] = data.map((country: any) => ({
         name: country.name.common,
         flag: country.flags?.png ?? null,
         iso3: country.cca3,
         region: country.region,
       }));
 
-      setFilteredCountries(filtered);
-      localStorage.setItem("filteredCountries", JSON.stringify(filtered));
+      setFilteredCountries(result);
+      localStorage.setItem("filteredCountries", JSON.stringify(result));
 
-      return filtered;
+      return result;
     } catch (e) {
       if (e instanceof Error) {
         setError(e.message);
@@ -83,7 +80,7 @@ export const CountriesProvider = ({ children }: Props) => {
     } finally {
       setLoading(false);
     }
-  }, [filteredCountries]);
+  }, []);
 
   useEffect(() => {
     const cache = localStorage.getItem("filteredCountries");
