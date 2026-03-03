@@ -4,29 +4,29 @@ Este projeto consiste no desenvolvimento de uma aplicação gráfica semelhante 
 ## Funcionalidades
 - 🌎 Gestão de Países
 
-- - Consumo da API REST Countries
+  - Consumo da API REST Countries
 
-- - Listagem de países participantes
+  - Listagem de países participantes
 
-- - Filtro e busca dinâmica
+  - Filtro e busca dinâmica
 
 - 👤 Gestão de Autoridades
 
-- - Cadastro de autoridades
+  - Cadastro de autoridades
 
-- - Aplicação de regras de negócio
+  - Aplicação de regras de negócio
 
-- - Persistência de dados via localStorage
+  - Persistência de dados via localStorage
 
-- - Edição e remoção de registros
+  - Edição e remoção de registros
 
 - 🗓️ Gestão de Agenda
 
-- - Agendamento de apresentações
+  - Agendamento de apresentações
 
-- - Controle de conflitos de horário
+  - Controle de conflitos de horário
 
-- - Associação entre países e autoridades
+  - Associação entre países e autoridades
 
 ## Tecnologias Utilizadas
 - ⚛️ React
